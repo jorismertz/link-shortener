@@ -1,7 +1,5 @@
 import prisma from "../prisma";
 
-export default async function database() {}
-
 export async function generateString(): Promise<string> {
   async function AlreadyExists(str: string) {
     const results = await prisma.link.findMany({
