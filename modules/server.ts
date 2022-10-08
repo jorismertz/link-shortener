@@ -7,7 +7,7 @@ import { createLink, findByShorthand } from "./database";
 
 export default function server(api: FastifyInstance) {
   api.get("/", (req, res) => {
-    const stream = fs.createReadStream(resolve("client/index.html"));
+    const stream = fs.createReadStream(resolve("client/public/index.html"));
     res.send(stream);
   });
 
