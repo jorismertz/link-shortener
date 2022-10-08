@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -19,7 +18,7 @@
   --electric-violet-900: #4b05ad;
 
   --clr-white: #fdfdff;
-  --clr-black: black;
+  --clr-black: rgb(50, 38, 53);
   --clr-gray: #4d4d4d;
   --line-margin: 0.75rem;
   --border: 2px solid var(--clr-gray);
@@ -29,10 +28,15 @@
 body,
 html {
   width: 100%;
-  background: var(--electric-violet-500);
+  background: var(--electric-violet-400);
   display: flex;
   justify-content: center;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
+  color: var(--clr-black);
+}
+
+h1,
+h2 {
   color: var(--clr-black);
 }
 
@@ -82,12 +86,12 @@ main section {
   transform: translateX(-50%);
   max-width: 95vw;
   background: var(--clr-white);
-  padding: 2rem 10rem;
+  padding: 2rem;
   /* border: var(--border); */
   border-radius: 0.5rem;
   display: flex;
   flex-flow: column wrap;
-  width: max-content;
+  /* width: max-content; */
   box-shadow: var(--shadow);
   -moz-box-shadow: var(--shadow);
   -webkit-box-shadow: var(--shadow);
@@ -103,7 +107,7 @@ input {
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  /* width: 100%; */
+  width: 100%;
   margin-top: var(--line-margin);
 }
 
@@ -112,6 +116,7 @@ th {
   border: 1px solid var(--electric-violet-200);
   text-align: left;
   padding: 8px;
+  text-align: center;
 }
 
 tr:nth-child(even) {
@@ -120,6 +125,7 @@ tr:nth-child(even) {
 
 td input {
   padding: 0.5rem 1rem;
+  width: 100%;
 }
 
 #user-input {
