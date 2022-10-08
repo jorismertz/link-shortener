@@ -32,7 +32,7 @@ export default function server(api: FastifyInstance) {
 
   const start = async () => {
     try {
-      await api.listen({ port: 3000 }).then((ip) => {
+      await api.listen({ port: 5123 }).then((ip) => {
         Log.server("Server listening on " + ip);
       });
     } catch (err) {
