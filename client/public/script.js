@@ -2,7 +2,6 @@ const userInput = document.getElementById("user-input");
 const output = document.getElementById("shortened-url");
 const shortenNew = document.getElementById("shorten-new");
 
-const { clipboard } = navigator;
 let lastLink = "";
 
 const isValidUrl = (url) => {
@@ -36,7 +35,9 @@ const toggleInput = (shorthand) => {
   else {
     output.value = document.location.href + shorthand;
     userInput.style.display = "none";
-    clipboard.writeText(output.value);
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(output.value);
+    }
     output.style.display = "unset";
     shortenNew.style.display = "unset";
     setMessage("Link copied to clipboard!");
