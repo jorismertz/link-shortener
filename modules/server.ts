@@ -3,7 +3,7 @@ import { resolve } from "path";
 import fs from "fs";
 
 import Log from "./logs";
-import { createLink, findByShorthand } from "./database";
+import { createLink, findByShorthand, getAllLinks } from "./database";
 
 export default function server(api: FastifyInstance) {
   api.get("/", (req, res) => {
@@ -20,6 +20,11 @@ export default function server(api: FastifyInstance) {
     } else {
       res.send("Link not found.");
     }
+  });
+
+  api.get("/api/all-links", async (req: any, res) => {
+    const links = await getAllLinks();
+    res.send(links);
   });
 
   api.post("/api/create-link", async (req: any, res) => {

@@ -21,6 +21,11 @@ export async function generateString(): Promise<string> {
   return await newString();
 }
 
+export async function getAllLinks() {
+  const links = await prisma.link.findMany();
+  return links;
+}
+
 export async function createLink(url: string) {
   const shorthand = await generateString();
   const link = await prisma.link.create({

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { linkSync } from "fs";
+
   let output = "";
   let input = "";
   let message = "";
@@ -66,10 +68,34 @@
         });
     }
   }
+
+  interface Link {
+    id: number;
+    createdAt: string;
+    originalUrl: string;
+    shorthand: string;
+  }
+
+  let allLinks: Link[] = [];
+  let showAllLinks = false;
+
+  function fetchLinks() {
+    showAllLinks = !showAllLinks;
+    if (allLinks.length !== 0) return;
+    fetch("http://localhost:5123/api/all-links", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        allLinks = res;
+      });
+  }
 </script>
 
 <main
-  style="--display-input: {displayStates.input}; --display-output: {displayStates.output}"
+  style="--display-input: {displayStates.input};
+         --display-output: {displayStates.output};
+         align-self: {allLinks.length !== 0 ? 'unset' : 'center'}"
 >
   <h1>Link shortener</h1>
   <p id="status-message">{message}</p>
@@ -84,4 +110,37 @@
   <button on:click={() => toggleInput()} id="shorten-new"
     >Shorten a new url.</button
   >
+  <p on:click={() => fetchLinks()}>
+    {#if showAllLinks}
+      Hide all previous created links.
+    {:else}
+      Show all previous created links.
+    {/if}
+  </p>
+  {#if showAllLinks}
+    <section>
+      <h2>All previous created links</h2>
+      <table>
+        <tr>
+          <th>id</th>
+          <th>created at</th>
+          <th>Link</th>
+          <th>Shorthand</th>
+        </tr>
+        {#each allLinks as { id, createdAt, originalUrl, shorthand }}
+          <tr>
+            <td>{id}</td>
+            <td>{new Date(createdAt).toDateString()}</td>
+            <td><input type="text" readonly value={originalUrl} /></td>
+            <td
+              ><input
+                type="text"
+                readonly
+                value={window.location + shorthand}
+              /></td
+            >
+          </tr>
+        {/each}
+      </table>
+    </section>{/if}
 </main>
