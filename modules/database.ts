@@ -1,25 +1,34 @@
 import prisma from "../prisma";
 
-export function generateString(): string {
-  const str = Math.random().toString(36).slice(2, 7);
-  return str;
-}
+export default async function database() {}
 
-export default async function database() {
-  //   const link = await prisma.link.create({
-  //     data: {
-  //       originalUrl: "https://google.com",
-  //       shorthand: "poepgap",
-  //     },
-  //   });
-  //   console.log(link);
+export async function generateString(): Promise<string> {
+  async function AlreadyExists(str: string) {
+    const results = await prisma.link.findMany({
+      where: {
+        shorthand: str,
+      },
+    });
+    if (results.length !== 0) return true;
+    else return false;
+  }
+  const newString = async (): Promise<any> => {
+    const str = Math.random().toString(36).slice(2, 12);
+    const exists = await AlreadyExists(str);
+    if (!exists) {
+      return str;
+    } else return newString();
+  };
+
+  return await newString();
 }
 
 export async function createLink(url: string) {
+  const shorthand = await generateString();
   const link = await prisma.link.create({
     data: {
       originalUrl: url,
-      shorthand: generateString(),
+      shorthand: shorthand,
     },
   });
   return link;
