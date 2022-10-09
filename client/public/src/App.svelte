@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
-  import { sineIn, sineOut } from "svelte/easing";
   import { secret } from "./modules/store";
+  import Table from "./components/AllLinks.svelte";
 
   let output = "";
+  let outputRef;
+
   let input = "";
-  let message = "";
 
   const displayStates = {
     input: "unset",
@@ -45,7 +45,7 @@
         navigator.clipboard.writeText(output);
       }
       displayStates.output = "unset";
-      message = "Link copied to clipboard!";
+      outputRef.select();
     }
   };
 
@@ -109,70 +109,25 @@
   }
 </script>
 
-<main
-  style="--display-input: {displayStates.input};
-         --display-output: {displayStates.output};
-         align-self: {allLinks.length !== 0 ? 'unset' : 'center'}"
->
-  <h1>Link shortener</h1>
-  <p id="status-message">{message}</p>
-  <input
-    bind:value={input}
-    on:keyup={keyUpHandler}
-    type="text"
-    id="user-input"
-    placeholder="Website link to shorten..."
-  />
-  <input bind:value={output} id="shortened-url" type="text" readonly />
-  <button on:click={() => toggleInput()} id="shorten-new"
-    >Shorten a new url.</button
-  >
-  <p on:click={() => fetchLinks()}>
-    {#if showAllLinks}
-      Hide all previous created links.
-    {:else}
-      Show all previous created links.
-    {/if}
-  </p>
-  {#if showAllLinks}
-    <section
-      in:fly={{
-        y: 200,
-        easing: sineIn,
-      }}
-      out:fly={{
-        y: 25,
-        easing: sineOut,
-      }}
-    >
-      <h2>All previous created links</h2>
-      <table>
-        <tr>
-          <th>id</th>
-          <th>created at</th>
-          <th>Link</th>
-          <th>Shorthand</th>
-        </tr>
-        {#each allLinks as { id, createdAt, originalUrl, shorthand }, i}
-          <tr
-            in:fly={{
-              y: 100,
-              delay: 100 * i,
-              easing: sineIn,
-            }}
-          >
-            <td>{id}</td>
-            <td>{new Date(createdAt).toDateString()}</td>
-            <td><input type="text" readonly value={originalUrl} /></td>
-            <td
-              ><input
-                type="text"
-                readonly
-                value={window.location + shorthand}
-              /></td
-            >
-          </tr>
-        {/each}
-      </table>
-    </section>{/if}
-</main>
+<div class="gui">
+  <ul>
+    <button on:click={() => toggleInput()}>Shorten new link</button>
+    <button on:click={() => fetchLinks()}>Show all links</button>
+  </ul>
+</div>
+
+<textarea
+  placeholder="paste link here..."
+  class="link-input"
+  bind:value={input}
+  on:keyup={keyUpHandler}
+  style="--display-input: {displayStates.input}"
+/>
+<textarea
+  class="link-output"
+  bind:value={output}
+  bind:this={outputRef}
+  style="--display-output: {displayStates.output}"
+  readonly
+/>
+<Table {showAllLinks} {allLinks} />
