@@ -1,5 +1,7 @@
 <script lang="ts">
   import { linkSync } from "fs";
+  import { fly } from "svelte/transition";
+  import { sineIn, sineOut } from "svelte/easing";
 
   let output = "";
   let input = "";
@@ -118,7 +120,16 @@
     {/if}
   </p>
   {#if showAllLinks}
-    <section>
+    <section
+      in:fly={{
+        y: 200,
+        easing: sineIn,
+      }}
+      out:fly={{
+        y: 25,
+        easing: sineOut,
+      }}
+    >
       <h2>All previous created links</h2>
       <table>
         <tr>
@@ -127,8 +138,14 @@
           <th>Link</th>
           <th>Shorthand</th>
         </tr>
-        {#each allLinks as { id, createdAt, originalUrl, shorthand }}
-          <tr>
+        {#each allLinks.reverse() as { id, createdAt, originalUrl, shorthand }, i}
+          <tr
+            in:fly={{
+              y: 100,
+              delay: 100 * i,
+              easing: sineIn,
+            }}
+          >
             <td>{id}</td>
             <td>{new Date(createdAt).toDateString()}</td>
             <td><input type="text" readonly value={originalUrl} /></td>

@@ -40,6 +40,7 @@ h2 {
 }
 
 main {
+  position: relative;
   background: var(--clr-white);
   display: flex;
   flex-flow: column wrap;
@@ -49,8 +50,8 @@ main {
   width: 35rem;
   max-width: 90vw;
   box-shadow: 2px 3px 2ch rgba(0, 0, 0, 0.15);
-  /* border: var(--border); */
   text-align: center;
+  align-items: center;
   transition: all 1s ease-in-out;
   box-shadow: var(--shadow);
   -moz-box-shadow: var(--shadow);
@@ -70,27 +71,26 @@ main > * {
 main button {
   padding: 0.5rem;
   max-width: 20rem;
-  background: var(--electric-violet-600);
+  background: var(--electric-violet-500);
   color: white;
   outline: none;
   font-size: 1rem;
-  /* border-radius: 1rem; */
+  border-radius: 1rem;
   display: var(--display-output);
 }
 
 main section {
   position: absolute;
   left: 50%;
-  top: 17rem;
+  top: calc(100% - 2rem);
   transform: translateX(-50%);
-  max-width: 95vw;
+  max-width: 60rem;
+  width: 95vw;
   background: var(--clr-white);
   padding: 2rem;
-  /* border: var(--border); */
   border-radius: 0.5rem;
   display: flex;
   flex-flow: column wrap;
-  /* width: max-content; */
   box-shadow: var(--shadow);
   -moz-box-shadow: var(--shadow);
   -webkit-box-shadow: var(--shadow);
@@ -98,8 +98,6 @@ main section {
 
 input {
   padding: 1rem 1.5rem;
-  /* border: var(--border); */
-  /* border-radius: 0.5rem; */
   font-size: 1rem;
 }
 
