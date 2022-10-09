@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { linkSync } from "fs";
   import { fly } from "svelte/transition";
   import { sineIn, sineOut } from "svelte/easing";
+  import { secret } from "./modules/store";
 
   let output = "";
   let input = "";
@@ -81,15 +81,30 @@
   let allLinks: Link[] = [];
   let showAllLinks = false;
 
-  function fetchLinks() {
+  async function authenticate() {
+    if ($secret === null) {
+      const given_secret = await prompt("Provide secret");
+      secret.set(given_secret);
+    }
+    return $secret;
+  }
+
+  async function fetchLinks() {
+    if ($secret === null) await authenticate();
     showAllLinks = !showAllLinks;
     if (allLinks.length !== 0) return;
     fetch("http://localhost:5123/api/all-links", {
-      method: "GET",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secret: $secret,
+      }),
     })
       .then((res) => res.json())
       .then((res) => {
-        allLinks = res;
+        allLinks = res.reverse();
       });
   }
 </script>
@@ -138,7 +153,7 @@
           <th>Link</th>
           <th>Shorthand</th>
         </tr>
-        {#each allLinks.reverse() as { id, createdAt, originalUrl, shorthand }, i}
+        {#each allLinks as { id, createdAt, originalUrl, shorthand }, i}
           <tr
             in:fly={{
               y: 100,

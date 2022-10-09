@@ -22,9 +22,15 @@ export default function server(api: FastifyInstance) {
     }
   });
 
-  api.get("/api/all-links", async (req: any, res) => {
-    const links = await getAllLinks();
-    res.send(links);
+  api.post("/api/all-links", async (req: any, res) => {
+    if (!req.body.secret) {
+      res.send("Please provide a secret.");
+    } else if (req.body.secret !== process.env.SECRET) {
+      res.send("Invalid secret provided.");
+    } else {
+      const links = await getAllLinks();
+      res.send(links);
+    }
   });
 
   api.post("/api/create-link", async (req: any, res) => {

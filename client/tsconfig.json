@@ -4,9 +4,9 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "declarationDir": "types",
-    "declaration": true
+    "declaration": true,
   },
 
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
-  "files": ["placeholder.ts"]
+  "files": ["placeholder.ts"],
 }
