@@ -1,6 +1,12 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
+// "abortOnError": false,
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "declarationDir": "types",
+    "declaration": true
+  },
 
-  "include": ["public/src/**/*"],
-  "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
+  "files": ["placeholder.ts"]
 }
