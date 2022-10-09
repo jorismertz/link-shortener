@@ -41,9 +41,12 @@ export default function server(api: FastifyInstance) {
     }
   });
 
+  const port: string = process.env.PORT || "5123";
+  const ip: string = process.env.IP || "localhost";
+
   const start = async () => {
     try {
-      await api.listen({ port: 5123 }).then((ip) => {
+      await api.listen({ port: parseInt(port), host: ip }).then((ip) => {
         Log.server("Server listening on " + ip);
       });
     } catch (err) {

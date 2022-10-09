@@ -1,4 +1,3 @@
-build/
 .prettierrc
 .env
 dev.db
