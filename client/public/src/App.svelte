@@ -28,7 +28,6 @@
       // If there's no shorthand provided reset style values
       output = "";
       input = "";
-      message = "";
 
       displayStates.input = "unset";
       displayStates.output = "none";

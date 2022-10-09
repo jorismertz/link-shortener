@@ -8,7 +8,7 @@ import server from "./modules/server";
 export const logger = true;
 
 const api = fastify({ logger: false });
-const cors_enabled = true;
+const cors_enabled = false;
 
 // This allows for cross origin requests while running the site in dev environment
 if (cors_enabled) {
