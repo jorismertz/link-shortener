@@ -3,7 +3,12 @@ import { resolve } from "path";
 import fs from "fs";
 
 import Log from "./logs";
-import { createLink, findByShorthand, getAllLinks } from "./database";
+import {
+  createLink,
+  findByShorthand,
+  getAllLinks,
+  incrementVisitedAmount,
+} from "./database";
 
 export default function server(api: FastifyInstance) {
   api.get("/", (req, res) => {
@@ -17,6 +22,7 @@ export default function server(api: FastifyInstance) {
 
     if (redirectUrl.length !== 0) {
       res.redirect(redirectUrl[0].originalUrl);
+      incrementVisitedAmount(redirectUrl[0].id);
     } else {
       res.send("Link not found.");
     }

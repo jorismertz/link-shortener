@@ -17,16 +17,21 @@
       easing: sineOut,
     }}
   >
-    <h2>All previous created links</h2>
-    <h3 on:click={() => (showAllLinks = false)}>Close</h3>
+    <header>
+      <h2>All previous created links</h2>
+      <h2 style="cursor:pointer" on:click={() => (showAllLinks = false)}>
+        Close
+      </h2>
+    </header>
     <table>
       <tr>
         <th>id</th>
         <th>created at</th>
         <th>Link</th>
         <th>Shorthand</th>
+        <th>Times visited</th>
       </tr>
-      {#each allLinks as { id, createdAt, originalUrl, shorthand }, i}
+      {#each allLinks as { id, createdAt, originalUrl, shorthand, visitedAmount }, i}
         <tr
           in:fly={{
             y: 100,
@@ -44,7 +49,16 @@
               value={window.location + shorthand}
             /></td
           >
+          <td>{visitedAmount}</td>
         </tr>
       {/each}
     </table>
   </section>{/if}
+
+<style>
+  section header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+</style>

@@ -54,7 +54,8 @@
     if (valid) {
       if (link == lastLink) return;
       lastLink = link;
-      fetch(window.location + "api/create-link", {
+      // fetch(window.location + "api/create-link", {
+      fetch("http://localhost:5123/api/create-link", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,6 +76,7 @@
     createdAt: string;
     originalUrl: string;
     shorthand: string;
+    visitedAmount: number;
   }
 
   let allLinks: Link[] = [];
@@ -92,7 +94,8 @@
     if ($secret === null) await authenticate();
     showAllLinks = !showAllLinks;
     if (allLinks.length !== 0) return;
-    fetch(window.location + "api/all-links", {
+    // fetch(window.location + "api/all-links", {
+    fetch("http://localhost:5123/api/all-links", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

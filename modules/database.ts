@@ -44,8 +44,23 @@ export async function findByShorthand(shorthand: string) {
     },
     select: {
       originalUrl: true,
+      id: true,
     },
     take: 1,
   });
   return redirectUrl;
+}
+
+export async function incrementVisitedAmount(id: number) {
+  const updateAmount = await prisma.link.update({
+    where: {
+      id: id,
+    },
+    data: {
+      visitedAmount: {
+        increment: 1,
+      },
+    },
+  });
+  return updateAmount;
 }
