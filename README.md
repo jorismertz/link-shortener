@@ -4,4 +4,8 @@
 `npm run start`
 
 ### environment variables
-```DATABASE_URL```
+```bash
+DATABASE_URL # Db file name
+SECRET # For protected api routes
+IP # Ip it's hosted on, for callback urls
+```

@@ -12,7 +12,7 @@ const cors_enabled = false;
 
 // This allows for cross origin requests while running the site in dev environment
 if (cors_enabled) {
-  api.register(cors, (instance) => {
+  api.register(cors, (): unknown => {
     return (req: any, callback: any) => {
       const corsOptions = {
         origin: true,
