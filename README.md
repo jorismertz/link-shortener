@@ -1,7 +1,9 @@
 # link-shortener
 
-### start script
-`npm run start`
+### Installing
+```bash
+npm i && npm run start
+```
 
 ### environment variables
 ```bash
