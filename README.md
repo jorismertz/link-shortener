@@ -5,7 +5,8 @@
 
 ### environment variables
 ```bash
-DATABASE_URL # Db file name
-SECRET # For protected api routes
-IP # Ip it's hosted on, for callback urls
+DATABASE_URL="file:./dev.db" # Db file name
+SECRET="password" # For protected api routes
+IP="localhost" # Ip it's hosted on, for callback urls
+PORT=3002
 ```
